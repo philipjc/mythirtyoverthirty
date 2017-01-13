@@ -1,16 +1,35 @@
-(function() {
 
-  function addStyle(element) {
+class Drumkit {
+
+  constructor() {
+    this.init();
+  }
+
+  init() {
+
+    window.addEventListener('keydown', (e) => {
+
+      const keyCode = e.keyCode;
+
+      findAudioToPlay(keyCode);
+
+    });
+
+  }
+
+  addStyle(element) {
 
     element.addEventListener('transitionend', (e) => {
+
       removeStyle(element);
+
     });
 
     element.classList.add('playing');
 
   }
 
-  function removeStyle(element) {
+  removeStyle(element) {
 
     element.removeEventListener('transitionend', removeStyle);
 
@@ -18,13 +37,13 @@
 
   }
 
-  function findAudioToPlay(code) {
+  findAudioToPlay(code) {
 
-    var audioElement = document.querySelector('audio[data-key="'+ code +'"]');
+    const audioElement = document.querySelector('audio[data-key="'+ code +'"]');
 
     if (!audioElement) return;
 
-    var keyElement = document.querySelector('.key[data-key="'+ code +'"]');
+    const keyElement = document.querySelector('.key[data-key="'+ code +'"]');
 
     addStyle(keyElement);
 
@@ -34,12 +53,7 @@
 
   }
 
-  window.addEventListener('keydown', function(e) {
+}
 
-    var keyCode = e.keyCode;
-
-    findAudioToPlay(keyCode);
-
-  });
-
-})();
+const drums = new Drumkit;
+drums();
