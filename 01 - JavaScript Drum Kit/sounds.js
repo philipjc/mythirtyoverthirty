@@ -9,11 +9,17 @@ class Drumkit {
 
     window.addEventListener('keydown', (e) => {
 
-      const keyCode = e.keyCode;
-
-      findAudioToPlay(keyCode);
+      this.playSound(e);
 
     });
+
+  }
+
+  playSound(e) {
+
+    const keyCode = e.keyCode;
+
+    this.findAudioToPlay(keyCode);
 
   }
 
@@ -21,7 +27,7 @@ class Drumkit {
 
     element.addEventListener('transitionend', (e) => {
 
-      removeStyle(element);
+      this.removeStyle(element);
 
     });
 
@@ -31,7 +37,7 @@ class Drumkit {
 
   removeStyle(element) {
 
-    element.removeEventListener('transitionend', removeStyle);
+    element.removeEventListener('transitionend', this.removeStyle);
 
     element.classList.remove('playing');
 
@@ -45,7 +51,7 @@ class Drumkit {
 
     const keyElement = document.querySelector('.key[data-key="'+ code +'"]');
 
-    addStyle(keyElement);
+    this.addStyle(keyElement);
 
     audioElement.currentTime = 0;
 
@@ -55,5 +61,4 @@ class Drumkit {
 
 }
 
-const drums = new Drumkit;
-drums();
+const drums = new Drumkit();
